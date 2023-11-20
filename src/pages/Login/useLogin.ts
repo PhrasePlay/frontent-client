@@ -2,6 +2,8 @@ import { useState } from "react"
 import * as yup from 'yup';
 
 import { API } from "services/api";
+import { setToken, setRefreshToken } from "storage";
+import { type AuthResponseData } from "types";
 
 const initialErrorsState = { password: '', email: '' }
 
@@ -25,6 +27,10 @@ export default () => {
 			.required('O campo de senha é obrigatório.'),
 	});
 
+	const redirectToHome = () => {
+
+	}
+
 	const authLogin = async () => {
 		try {
 			const params = {
@@ -32,8 +38,10 @@ export default () => {
 				"password": "admin"
 			}
 
-			const response = await API.post('token/', params);
-			console.log(response)
+			const response = await API.post<AuthResponseData>('token/', params);
+			setToken(response.data.access)
+			setRefreshToken(response.data.refresh)
+			redirectToHome()
 		} catch (err) {
 			console.error(err);
 		}
