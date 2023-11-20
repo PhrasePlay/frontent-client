@@ -1,13 +1,18 @@
 import { useState } from "react"
+import { useNavigate } from "react-router-dom";
 import * as yup from 'yup';
 
 import { API } from "services/api";
 import { setToken, setRefreshToken } from "storage";
 import { type AuthResponseData } from "types";
+import { useAuthContext } from "contexts/auth";
 
 const initialErrorsState = { password: '', email: '' }
 
 export default () => {
+	const navigate = useNavigate();
+	const { changeIsAuthenticated } = useAuthContext()
+
 	const [formState, setFormState] = useState<{ password: string; email: string }>({ email: '', password: '' });
 	const [errors, setErrors] = useState(initialErrorsState);
 
@@ -28,7 +33,8 @@ export default () => {
 	});
 
 	const redirectToHome = () => {
-
+		changeIsAuthenticated(true)
+		navigate('/home')
 	}
 
 	const authLogin = async () => {
