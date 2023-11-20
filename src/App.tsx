@@ -1,9 +1,17 @@
-import { RouterProvider } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
-import { router } from './routes';
+import { publicsRouter, privatesRouter } from './routes';
+import { useAuthContext } from 'contexts/auth';
 
 function App() {
-  return <RouterProvider router={router} />;
+  const { isAuthenticated } = useAuthContext();
+  return (
+    <Routes>
+      {isAuthenticated
+        ? privatesRouter.map((route, index) => <Route key={index} {...route} />)
+        : publicsRouter.map((route, index) => <Route key={index} {...route} />)}
+    </Routes>
+  );
 }
 
 export default App;

@@ -1,10 +1,12 @@
-import { createBrowserRouter } from 'react-router-dom';
+import { Login, Splash } from 'pages';
 
-import { Login } from 'pages';
-
-export const router = createBrowserRouter([
+export const publicsRouter = [
   {
     path: '/',
+    element: <Splash />,
+  },
+  {
+    path: '/login',
     element: <Login />,
   },
-]);
+]
