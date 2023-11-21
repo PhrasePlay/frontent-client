@@ -5,6 +5,7 @@ import { useAuthContext } from 'contexts/auth';
 
 function App() {
   const { isAuthenticated } = useAuthContext();
+
   return (
     <Routes>
       {isAuthenticated

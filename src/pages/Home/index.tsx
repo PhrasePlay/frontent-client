@@ -1,3 +1,9 @@
+import { PhraseCard } from './components/PhraseCard';
+
 export const Home = () => {
-  return <div>Home</div>;
+  return (
+    <div className="">
+      <PhraseCard />
+    </div>
+  );
 };
